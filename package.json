@@ -26,9 +26,9 @@
   },
   "homepage": "https://github.com/octoshrimpy/bulma-o-steps#readme",
   "dependencies": {
-    "bulma": "^0.8.2"
+    "bulma": "^1.0"
   },
   "devDependencies": {
-    "node-sass": "^4.14.1"
+    "sass": "^1.77.8"
   }
 }

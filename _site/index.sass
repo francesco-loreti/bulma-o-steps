@@ -1,3 +1,16 @@
+@use "bulma/sass/utilities" as utils
+@use "bulma/sass/utilities/mixins"
+
+// external overridable bulma variables
+$colors: utils.$colors !default
+$grey-lighter: utils.$grey-lighter !default
+$size-small: utils.$size-small !default
+$size-medium: utils.$size-medium !default
+$size-normal: utils.$size-normal !default
+$size-large: utils.$size-large !default
+$success: utils.$success !default
+$weight-bold: utils.$weight-bold !default
+
 $steps-default-color: $grey-lighter !default
 $steps-completed-color: $success !default
 $steps-active-color: $success !default
@@ -10,15 +23,19 @@ $steps-hollow-border-size: .3em !default
 $steps-thin-divider-size: 1px !default
 $steps-thin-marker-size: .8em !default
 
+// internal variables
+$color: null
+$color-invert: null
+
 =steps-horizontal
-  +tablet
+  +mixins.tablet
     &:not(.is-vertical)
       @content
   &.is-horizontal
     @content
 
 =steps-vertical
-  +mobile
+  +mixins.mobile
     &:not(.is-horizontal)
       @content
   &.is-vertical
@@ -304,8 +321,13 @@ $steps-thin-marker-size: .8em !default
 
 // Override marker color per step
 @each $name, $pair in $colors
-  $color: nth($pair, 1)
-  $color-invert: nth($pair, 2)
+  @if type-of($pair != "list") 
+    $color: $pair !global
+    $color-invert: utils.bulmaFindColorInvert($pair) !global
+  @else
+    $color: nth($pair, 1) !global
+    $color-invert: nth($pair, 2) !global
+
   .steps:not(.is-hollow) .steps-marker:not(.is-hollow)
     &.is-#{$name}
       background-color: $color !important

@@ -30,8 +30,28 @@ Currently tracking: **bulma v0.8.2**. Other versions _should_ work, but no promi
 #### SASS
 
 - Download the `bulma-steps.sass` file
-- Add `@import "bulma-steps.sass"` _after_ the `@import "bulma.sass"` statement in your own
-  stylesheet
+- Add `@use "bulma-steps"` _after_ the `@import "bulma" as bulma` statement in your own
+  stylesheet. 
+  
+  If you have customized Bulma's variables you can pass in the changes:
+
+  @use "bulma" as bulma with ($family-primary: '"Nunito", sans-serif',
+    $info: $customized-info,
+    $input-shadow: none,
+    $success: $customized-success);
+
+  @use "../node_modules/bulma-o-steps" as bulma_steps with ($colors: bulma.$colors,
+    $grey-lighter: bulma.$grey-lighter,
+    $size-small: bulma.$size-small,
+    $size-medium: bulma.$size-medium,
+    $size-normal: bulma.$size-normal,
+    $size-large: bulma.$size-large,
+    $success: bulma.$success,
+    $weight-bold: bulma.$weight-bold);
+
+  Note that it only makes sense to pass in the variables used by bulma-o-steps (enumerated 
+  at the top of index.sass). In the above example, the only variable that actually 
+  needed to be passed in was $success since it had been customized.
 
 #### CSS
 
