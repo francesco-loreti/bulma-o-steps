@@ -1,3 +1,4 @@
+@use 'sass:meta'
 @use "bulma/sass/utilities" as utils
 @use "bulma/sass/utilities/mixins"
 
@@ -322,7 +323,7 @@ $color-invert: null
 
 // Override marker color per step
 @each $name, $pair in $colors
-  @if type-of($pair != "list") 
+  @if meta.type-of($pair != "list") 
     $color: $pair !global
     $color-invert: utils.bulmaFindColorInvert($pair) !global
   @else
